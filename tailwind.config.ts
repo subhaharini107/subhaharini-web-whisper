@@ -21,6 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'poppins': ['Poppins', 'sans-serif'],
+				'mono': ['Fira Code', 'Source Code Pro', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
