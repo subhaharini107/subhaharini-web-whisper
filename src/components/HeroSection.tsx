@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Github } from 'lucide-react';
 
 const HeroSection = () => {
   return (
@@ -25,9 +26,37 @@ const HeroSection = () => {
               <Button className="bg-rose hover:bg-rose/90 text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105">
                 Download CV
               </Button>
-              <Button variant="outline" className="border-navy text-navy hover:bg-navy hover:text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105">
-                Let's Connect
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button 
+                  variant="outline" 
+                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
+                  onClick={() => window.open('https://github.com', '_blank')}
+                >
+                  <Github className="w-4 h-4 mr-2" />
+                  GitHub
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
+                  onClick={() => window.open('https://leetcode.com', '_blank')}
+                >
+                  💻 LeetCode
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
+                  onClick={() => window.open('https://codechef.com', '_blank')}
+                >
+                  🍳 CodeChef
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
+                  onClick={() => window.open('https://geeksforgeeks.org', '_blank')}
+                >
+                  🚀 GFG
+                </Button>
+              </div>
             </div>
           </div>
 
