@@ -1,6 +1,5 @@
-
 import React, { useEffect, useRef, useState } from 'react';
-import { Medal, Certificate } from 'lucide-react';
+import { Medal, BookOpen } from 'lucide-react';
 
 interface CourseItem {
   title: string;
@@ -98,7 +97,7 @@ const CoursesTimeline = () => {
                 {course.type === 'certification' ? (
                   <Medal className="w-4 h-4 text-rose" />
                 ) : (
-                  <Certificate className="w-4 h-4 text-rose" />
+                  <BookOpen className="w-4 h-4 text-rose" />
                 )}
               </div>
 
@@ -131,7 +130,7 @@ const CoursesTimeline = () => {
                     {course.type === 'certification' ? (
                       <Medal className="w-3 h-3" />
                     ) : (
-                      <Certificate className="w-3 h-3" />
+                      <BookOpen className="w-3 h-3" />
                     )}
                     {course.type === 'certification' ? 'Certification' : 'Course'}
                   </span>
