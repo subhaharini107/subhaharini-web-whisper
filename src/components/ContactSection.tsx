@@ -1,162 +1,257 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Github, Code, Trophy, BookOpen, Check } from 'lucide-react';
 
 const ContactSection = () => {
-  const [isTyping, setIsTyping] = useState(true);
-  const [showCursor, setShowCursor] = useState(true);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Floating particles for background animation
+  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
 
   useEffect(() => {
     // Console log message on component mount
     console.log("Thanks for visiting Subhaharini's portfolio 👩‍💻 Let's build something awesome!");
 
-    // Cursor blinking animation
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 530);
-
-    // Stop typing animation after 3 seconds
-    const typingTimeout = setTimeout(() => {
-      setIsTyping(false);
-    }, 3000);
-
-    return () => {
-      clearInterval(cursorInterval);
-      clearTimeout(typingTimeout);
-    };
+    // Generate particles for background animation
+    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: Math.random() * 5
+    }));
+    setParticles(newParticles);
   }, []);
 
-  const contactData = {
-    email: "subhasenniappan@gmail.com",
-    github: "https://github.com/subhaharini04",
-    linkedin: "https://linkedin.com/in/subha-harini",
-    resume: "[Download CV]",
-    status: "🌟 Open to work"
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleStartChat = () => {
-    window.location.href = `mailto:${contactData.email}?subject=Let's Connect!&body=Hi Subhaharini, I'd love to connect and discuss opportunities!`;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setIsSubmitted(true);
+    setIsSubmitting(false);
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({ name: '', email: '', message: '' });
+    }, 3000);
   };
+
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/subhaharini04',
+      icon: Github,
+      color: 'hover:text-gray-800'
+    },
+    {
+      name: 'LeetCode',
+      url: 'https://leetcode.com/subhaharini04',
+      icon: Code,
+      color: 'hover:text-orange-500'
+    },
+    {
+      name: 'CodeChef',
+      url: 'https://codechef.com/users/subhaharini04',
+      icon: Trophy,
+      color: 'hover:text-brown-600'
+    },
+    {
+      name: 'GeeksforGeeks',
+      url: 'https://geeksforgeeks.org/user/subhaharini04',
+      icon: BookOpen,
+      color: 'hover:text-green-600'
+    }
+  ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-navy relative overflow-hidden">
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 text-4xl animate-float opacity-20">💬</div>
-      <div className="absolute top-32 right-16 text-3xl animate-float opacity-20" style={{ animationDelay: '1s' }}>💻</div>
-      <div className="absolute bottom-32 left-20 text-2xl animate-float opacity-20" style={{ animationDelay: '2s' }}>✨</div>
-      <div className="absolute bottom-20 right-10 text-3xl animate-float opacity-20" style={{ animationDelay: '0.5s' }}>🔗</div>
+    <section id="contact" className="py-20 bg-warmGray relative overflow-hidden min-h-screen">
+      {/* Floating Particles Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        {particles.map((particle) => (
+          <div
+            key={particle.id}
+            className="absolute w-2 h-2 bg-rose opacity-20 rounded-full animate-float"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              animationDelay: `${particle.delay}s`,
+              animationDuration: `${3 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
 
-      <div className="section-padding max-w-6xl mx-auto">
+      {/* Subtle background lines */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose to-transparent"></div>
+        <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-rose to-transparent"></div>
+      </div>
+
+      <div className="section-padding max-w-7xl mx-auto relative z-10">
+        {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4 font-mono">
-            Let's Connect Over Code 💬
+          <h2 className="text-4xl md:text-5xl font-bold text-navy mb-4 font-poppins">
+            Let's Connect — I'm Open to Work! ✨
           </h2>
-          <div className="w-20 h-1 bg-rose rounded-full mx-auto mb-6"></div>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto font-mono">
-            Ready to collaborate on something amazing?
-          </p>
+          <div className="w-24 h-1 bg-rose rounded-full mx-auto"></div>
         </div>
 
-        {/* Terminal Window */}
-        <div className="max-w-4xl mx-auto">
-          {/* Terminal Header */}
-          <div className="bg-gray-700 rounded-t-lg px-6 py-3 flex items-center gap-2">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
-            <div className="flex-1 text-center">
-              <span className="text-gray-300 text-sm font-mono">subhaharini-portfolio — terminal</span>
-            </div>
-          </div>
-
-          {/* Terminal Content */}
-          <div className="bg-gray-900 rounded-b-lg p-8 font-mono text-sm border border-gray-700">
-            {/* Command Line */}
-            <div className="mb-6">
-              <span className="text-green-400">subhaharini@portfolio:~$</span>
-              <span className="text-white ml-2">subhaharini.initConversation()</span>
-              {showCursor && <span className="text-white animate-pulse">|</span>}
-            </div>
-
-            {/* Output */}
-            <div className="space-y-2 mb-8">
-              <div className="text-blue-400">→ Opening connection...</div>
-              <div className="text-yellow-400">→ I'm available for internships, freelance, and collaboration.</div>
-              <div className="text-green-400">→ You can reach me here:</div>
-            </div>
-
-            {/* JSON Contact Data */}
-            <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-600">
-              <div className="text-purple-400 mb-2">Contact Information:</div>
-              <pre className="text-gray-300 text-sm overflow-x-auto">
-{`{
-  "email": "${contactData.email}",
-  "github": "${contactData.github}",
-  "linkedin": "${contactData.linkedin}",
-  "resume": "${contactData.resume}",
-  "status": "${contactData.status}"
-}`}
-              </pre>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={handleStartChat}
-                className="bg-green-600 hover:bg-green-700 text-white font-mono text-base px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 group"
-              >
-                <span className="mr-2">></span>
-                Start Chat
-                <span className="ml-2 group-hover:animate-pulse">_</span>
-              </Button>
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Side - Description & Social Links */}
+          <div className="space-y-8">
+            <div className="text-center lg:text-left">
+              <p className="text-xl text-gray-700 leading-relaxed font-poppins mb-8">
+                I'm a passionate developer open to exciting opportunities. Let's create something awesome together! 🚀
+              </p>
               
-              <Button
-                variant="outline"
-                onClick={() => window.open(contactData.github, '_blank')}
-                className="border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white font-mono text-base px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
-              >
-                <span className="mr-2">></span>
-                View GitHub
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => window.open(contactData.linkedin, '_blank')}
-                className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white font-mono text-base px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25"
-              >
-                <span className="mr-2">></span>
-                LinkedIn
-              </Button>
-            </div>
-
-            {/* Status Line */}
-            <div className="mt-8 pt-6 border-t border-gray-700">
-              <div className="flex items-center justify-between text-gray-400 text-xs">
-                <span>Connection Status: <span className="text-green-400">Online</span></span>
-                <span className="animate-pulse">Ready to collaborate ✨</span>
+              <div className="space-y-4 text-gray-600">
+                <p className="flex items-center justify-center lg:justify-start gap-2">
+                  <span className="text-green-500">●</span>
+                  Open to internships & junior roles
+                </p>
+                <p className="flex items-center justify-center lg:justify-start gap-2">
+                  <span className="text-blue-500">●</span>
+                  Available for freelance projects
+                </p>
+                <p className="flex items-center justify-center lg:justify-start gap-2">
+                  <span className="text-purple-500">●</span>
+                  Ready to collaborate & learn
+                </p>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Dev Chat Window */}
-        <div className="fixed bottom-6 right-6 bg-gray-800 rounded-lg shadow-xl border border-gray-600 w-80 hidden lg:block">
-          <div className="bg-gray-700 rounded-t-lg px-4 py-2 flex items-center justify-between">
-            <span className="text-gray-300 text-sm font-mono">Dev Chat</span>
-            <div className="flex gap-1">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            {/* Social Media Icons */}
+            <div className="flex justify-center lg:justify-start space-x-6">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group relative p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 ${social.color}`}
+                  title={social.name}
+                >
+                  <social.icon className="w-6 h-6 text-gray-600 group-hover:text-current transition-colors duration-300" />
+                  
+                  {/* Tooltip */}
+                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    {social.name}
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
-          <div className="p-4 font-mono text-xs">
-            <div className="text-green-400 mb-2">System: Portfolio loaded successfully! 🎉</div>
-            <div className="text-blue-400 mb-2">Subhaharini: Thanks for visiting!</div>
-            <div className="text-gray-400">Type your message...</div>
-            <div className="mt-3 flex">
-              <span className="text-gray-500">></span>
-              <span className="text-white ml-2 animate-pulse">_</span>
+
+          {/* Right Side - Contact Form */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-10 relative overflow-hidden">
+            {/* Form background decoration */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-rose opacity-5 rounded-full transform translate-x-16 -translate-y-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-yellow opacity-5 rounded-full transform -translate-x-12 translate-y-12"></div>
+
+            <div className="relative z-10">
+              {!isSubmitted ? (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <Input
+                      type="text"
+                      name="name"
+                      placeholder="Enter your name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-rose focus:ring-2 focus:ring-rose/20 transition-all duration-300 font-poppins"
+                    />
+                  </div>
+
+                  <div>
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder="you@example.com"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-rose focus:ring-2 focus:ring-rose/20 transition-all duration-300 font-poppins"
+                    />
+                  </div>
+
+                  <div>
+                    <Textarea
+                      name="message"
+                      placeholder="Tell me a little about your opportunity, role, or just say hi 👋"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={5}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-rose focus:ring-2 focus:ring-rose/20 transition-all duration-300 resize-none font-poppins"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-rose hover:bg-rose/90 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed font-poppins"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Sending...
+                      </span>
+                    ) : (
+                      'Start the Conversation'
+                    )}
+                  </Button>
+                </form>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2 font-poppins">
+                    Thank you for reaching out!
+                  </h3>
+                  <p className="text-gray-600 font-poppins">
+                    ✅ I'll get back to you shortly.
+                  </p>
+                  
+                  {/* Confetti effect */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-2 h-2 bg-yellow rounded-full animate-bounce opacity-60"
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                          animationDelay: `${Math.random() * 2}s`,
+                          animationDuration: '1.5s'
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
