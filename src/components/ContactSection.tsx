@@ -1,9 +1,14 @@
-
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Github, Code, Trophy, BookOpen, Check } from 'lucide-react';
+import { SiCodechef, SiLeetcode, SiGeeksforgeeks } from 'react-icons/si';
+import { FaLinkedin } from "react-icons/fa";
+import emailjs from '@emailjs/browser';
+
+
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +20,7 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Floating particles for background animation
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
+  const [particles, setParticles] = useState<Array<{ id: number, x: number, y: number, delay: number }>>([]);
 
   useEffect(() => {
     // Console log message on component mount
@@ -42,21 +47,50 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitted(true);
+
+    try {
+      await emailjs.send(
+        'service_mh3fpem',     // Replace with your actual Service ID
+        'template_wl3c7qd',    // Replace with your actual Template ID
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          message: formData.message,
+        },
+        'EW9j2P_J1EQJ_JT1R'      // Replace with your EmailJS Public Key
+      );
+      await emailjs.send(
+        'service_mh3fpem',
+        'template_2qthdo5',
+        {
+          to_name: formData.name,
+          reply_to: formData.email,
+        },
+        'EW9j2P_J1EQJ_JT1R'
+      );
+      console.log('Emails sent successfully!');
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      alert('Failed to send message. Please try again later.');
+    }
+
     setIsSubmitting(false);
-    
-    // Reset form after 3 seconds
+
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: '', email: '', message: '' });
     }, 3000);
   };
 
+
   const socialLinks = [
+    {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/subha-harini',
+      icon: FaLinkedin,
+      color: 'hover:text-blue-500'
+    },
     {
       name: 'GitHub',
       url: 'https://github.com/subhaharini04',
@@ -65,23 +99,24 @@ const ContactSection = () => {
     },
     {
       name: 'LeetCode',
-      url: 'https://leetcode.com/subhaharini04',
-      icon: Code,
+      url: 'https://leetcode.com/subhaharinis',
+      icon: SiLeetcode,
       color: 'hover:text-orange-500'
     },
     {
       name: 'CodeChef',
-      url: 'https://codechef.com/users/subhaharini04',
-      icon: Trophy,
-      color: 'hover:text-brown-600'
+      url: 'https://www.codechef.com/users/subhaharini07',
+      icon: SiCodechef,
+      color: 'hover:text-red-950'
     },
     {
       name: 'GeeksforGeeks',
-      url: 'https://geeksforgeeks.org/user/subhaharini04',
-      icon: BookOpen,
+      url: 'https://auth.geeksforgeeks.org/user/subhasenvbrq/profile',
+      icon: SiGeeksforgeeks,
       color: 'hover:text-green-600'
     }
   ];
+
 
   return (
     <section id="contact" className="py-20 bg-warmGray relative overflow-hidden min-h-screen">
@@ -124,7 +159,7 @@ const ContactSection = () => {
               <p className="text-xl text-gray-700 leading-relaxed font-poppins mb-8">
                 I'm a passionate developer open to exciting opportunities. Let's create something awesome together! 🚀
               </p>
-              
+
               <div className="space-y-4 text-gray-600">
                 <p className="flex items-center justify-center lg:justify-start gap-2">
                   <span className="text-green-500">●</span>
@@ -153,7 +188,7 @@ const ContactSection = () => {
                   title={social.name}
                 >
                   <social.icon className="w-6 h-6 text-gray-600 group-hover:text-current transition-colors duration-300" />
-                  
+
                   {/* Tooltip */}
                   <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                     {social.name}
@@ -163,11 +198,12 @@ const ContactSection = () => {
             </div>
           </div>
 
+
           {/* Right Side - Contact Form */}
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-10 relative overflow-hidden">
             {/* Form background decoration */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-rose opacity-5 rounded-full transform translate-x-16 -translate-y-16"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-yellow opacity-5 rounded-full transform -translate-x-12 translate-y-12"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 opacity-5 rounded-full transform -translate-x-12 translate-y-12"></div>
 
             <div className="relative z-10">
               {!isSubmitted ? (
@@ -180,7 +216,7 @@ const ContactSection = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-rose focus:ring-2 focus:ring-rose/20 transition-all duration-300 font-poppins"
+                      className="w-full px-4 py-3 bg-white text-navy placeholder:text-rose border border-gray-200 rounded-lg focus:ring-2 focus:ring-rose/20 transition-all duration-300 font-poppins"
                     />
                   </div>
 
@@ -192,19 +228,19 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-rose focus:ring-2 focus:ring-rose/20 transition-all duration-300 font-poppins"
+                      className="w-full px-4 py-3 bg-white text-navy placeholder:text-rose border border-gray-200 rounded-lg transition-all duration-300 font-poppins"
                     />
                   </div>
 
                   <div>
                     <Textarea
                       name="message"
-                      placeholder="Tell me a little about your opportunity, role, or just say hi 👋"
+                      placeholder="Tell me a little about your opportunity, role, or just say hi !"
                       value={formData.message}
                       onChange={handleInputChange}
                       required
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:border-rose focus:ring-2 focus:ring-rose/20 transition-all duration-300 resize-none font-poppins"
+                      className="w-full px-4 py-3 bg-white text-navy placeholder:text-rose border border-gray-200 rounded-lg transition-all duration-300 resize-none font-poppins"
                     />
                   </div>
 
@@ -234,13 +270,13 @@ const ContactSection = () => {
                   <p className="text-gray-600 font-poppins">
                     ✅ I'll get back to you shortly.
                   </p>
-                  
+
                   {/* Confetti effect */}
                   <div className="absolute inset-0 pointer-events-none">
                     {Array.from({ length: 10 }).map((_, i) => (
                       <div
                         key={i}
-                        className="absolute w-2 h-2 bg-yellow rounded-full animate-bounce opacity-60"
+                        className="absolute w-2 h-2 rounded-full animate-bounce opacity-60"
                         style={{
                           left: `${Math.random() * 100}%`,
                           top: `${Math.random() * 100}%`,

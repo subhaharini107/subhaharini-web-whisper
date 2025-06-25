@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 import { Button } from '@/components/ui/button';
 
 const ProjectsSection = () => {
@@ -9,16 +9,16 @@ const ProjectsSection = () => {
       description: 'A comprehensive MERN stack application for managing inventory with real-time updates, user authentication, and cloud storage integration.',
       technologies: ['React', 'Node.js', 'MongoDB', 'AWS S3', 'JWT'],
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&h=300',
-      github: '#',
-      demo: '#'
+      github: 'https://github.com/gowtham-aracreate/act-metrix-shop',
+      demo: null
     },
     {
       title: 'Responsive Stationery Shop',
       description: 'A modern, fully responsive landing page for a stationery shop built with clean HTML, CSS, and Bootstrap for optimal user experience.',
       technologies: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
       image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&h=300',
-      github: '#',
-      demo: '#'
+      github: 'https://github.com/subhaharini04/OCTANET_APRIL',
+      demo: null
     }
   ];
 
@@ -47,11 +47,11 @@ const ProjectsSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent"></div>
               </div>
-              
+
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-navy mb-4">{project.title}</h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
-                
+
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech) => (
                     <span
@@ -62,15 +62,23 @@ const ProjectsSection = () => {
                     </span>
                   ))}
                 </div>
-                
+
                 <div className="flex gap-4">
-                  <Button className="bg-navy hover:bg-navy/90 text-white rounded-2xl">
-                    View Code
-                  </Button>
-                  <Button variant="outline" className="border-rose text-rose hover:bg-rose hover:text-white rounded-2xl">
-                    Live Demo
-                  </Button>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <Button className="bg-navy hover:bg-navy/90 text-white rounded-2xl">
+                      View Code
+                    </Button>
+                  </a>
+
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      <Button className="border border-rose text-rose hover:bg-rose hover:text-white rounded-2xl">
+                        Live Demo
+                      </Button>
+                    </a>
+                  )}
                 </div>
+
               </div>
             </div>
           ))}

@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,7 +25,7 @@ const Header = () => {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+      isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-lg' : 'bg-white'
     }`}>
       <nav className="section-padding py-4">
         <div className="flex items-center justify-between">
@@ -39,12 +40,13 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-foreground hover:text-rose transition-colors duration-300 font-medium"
+                className="text-foreground text-rose hover:text-navy transition-colors duration-300 font-medium"
               >
                 {item.label}
               </a>
             ))}
           </div>
+          
 
           {/* Mobile Menu Button */}
           <button
@@ -55,6 +57,7 @@ const Header = () => {
             <span className={`w-6 h-0.5 bg-navy transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
             <span className={`w-6 h-0.5 bg-navy transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
           </button>
+        
         </div>
 
         {/* Mobile Menu */}

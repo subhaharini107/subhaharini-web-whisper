@@ -1,51 +1,105 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Briefcase } from 'lucide-react';
 
-import React from 'react';
+interface ExperienceItem {
+  role: string;
+  company: string;
+  duration: string;
+  description: string[];
+}
 
 const ExperienceSection = () => {
+  const [visibleItems, setVisibleItems] = useState<number[]>([]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const experiences: ExperienceItem[] = [
+    {
+      role: "Full Stack Developer Intern",
+      company: "AraCreate India Pvt. Ltd",
+      duration: "Jan 2025 – Mar 2025",
+      description: [
+        "Built Inventory Management System using MERN stack",
+        "Implemented JWT auth, AWS S3, and real-time chat with Socket.IO",
+        "Collaborated with 2-member dev team using Git & GitHub"
+      ]
+    }
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.getAttribute('data-index') || '0');
+            setVisibleItems(prev => [...prev, index]);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="experience" className="py-20 bg-warmGray">
-      <div className="section-padding max-w-6xl mx-auto">
+    <section className="py-20 bg-warmGray">
+      <div className="section-padding max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-navy mb-4">Experience</h2>
-          <div className="w-20 h-1 bg-rose rounded-full mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            My professional journey and hands-on experience in development
-          </p>
+          <h2 className="text-4xl font-bold text-navy mb-4 font-poppins">My Experience</h2>
+          <div className="w-20 h-1 bg-rose rounded-full mx-auto"></div>
         </div>
 
-        <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div className="flex flex-col md:flex-row md:items-center gap-6">
-            <div className="flex-1">
-              <h3 className="text-2xl font-bold text-navy mb-2">Full Stack Developer Intern</h3>
-              <h4 className="text-xl text-rose font-semibold mb-2">AraCreate India</h4>
-              <p className="text-gray-600 mb-4">Jan 2025 – Mar 2025</p>
-              
-              <div className="space-y-2">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-rose rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">Built full-stack Inventory System using MERN stack</p>
+        <div className="relative">
+          {/* Timeline Line */}
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+
+          {experiences.map((experience, index) => (
+            <div
+              key={index}
+              ref={(el) => itemRefs.current[index] = el}
+              data-index={index}
+              className={`relative flex items-start mb-12 transition-all duration-700 ${visibleItems.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-8'
+                }`}
+            >
+              {/* Timeline Icon */}
+              <div className="absolute left-6 w-4 h-4 bg-rose rounded-full border-4 border-white shadow-md z-10"></div>
+              <div className="absolute left-4 w-8 h-8 bg-white rounded-full border-2 border-rose flex items-center justify-center shadow-md z-20">
+                <Briefcase className="w-4 h-4 text-rose" />
+              </div>
+
+              {/* Content Card */}
+              <div className="ml-20 bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full">
+                <div className="mb-4">
+                  <h3 className="text-xl font-semibold text-navy mb-1 font-poppins">
+                    {experience.role}
+                  </h3>
+                  <a href="https://aracreate.group/" target="_blank"
+                    rel="noopener noreferrer" className="text-lg text-rose font-medium">
+                    {experience.company}
+                  </a>
+                  <br />
+                  <span className="inline-block mt-3 px-3 py-1 bg-rose/10 text-rose text-sm rounded-full font-medium">
+                    {experience.duration}
+                  </span>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-rose rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">Implemented JWT Authentication and AWS S3 file uploads</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-rose rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">Developed real-time chat functionality with Socket.IO</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-rose rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700">Used GitHub and Git for version control and team collaboration</p>
-                </div>
+
+                <ul className="space-y-2">
+                  {experience.description.map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-700">
+                      <div className="w-1.5 h-1.5 bg-rose rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="font-poppins">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-            
-            <div className="flex-shrink-0">
-              <div className="w-20 h-20 bg-gradient-to-br from-rose/20 to-yellow/20 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">💼</span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

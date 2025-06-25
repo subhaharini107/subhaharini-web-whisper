@@ -1,6 +1,6 @@
 
-import React from 'react';
-
+import * as React from 'react';
+import { MapPin } from 'lucide-react';
 const EducationSection = () => {
   return (
     <section id="education" className="py-20 bg-white">
@@ -29,11 +29,7 @@ const EducationSection = () => {
                 <span className="hidden sm:block">•</span>
                 <span>CGPA: 8.31</span>
                 <span className="hidden sm:block">•</span>
-                <span>📍 Erode, Tamil Nadu</span>
-              </div>
-              
-              <div className="inline-flex items-center px-4 py-2 bg-yellow/20 text-navy rounded-full font-medium">
-                🏆 Strong Academic Performance
+                <span className='inline-flex gap-2'> <MapPin/> Erode, Tamil Nadu</span>
               </div>
             </div>
           </div>

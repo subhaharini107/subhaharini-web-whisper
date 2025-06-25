@@ -1,7 +1,42 @@
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Github } from 'lucide-react';
+import * as React from 'react'; import { Button } from '@/components/ui/button';
+import { Github, Code, Trophy, BookOpen, Check } from 'lucide-react';
+import hero from '../assets/hero.png';
+import { FaLinkedin } from "react-icons/fa";
+import { SiCodechef, SiLeetcode, SiGeeksforgeeks } from 'react-icons/si';
+
+const socialLinks = [
+  {
+        name: 'LinkedIn',
+        url: 'https://www.linkedin.com/in/subha-harini',
+        icon: FaLinkedin ,
+        color: 'hover:text-blue-500'
+      },
+      {
+        name: 'GitHub',
+        url: 'https://github.com/subhaharini04',
+        icon: Github,
+        color: 'hover:text-gray-800'
+      },
+      {
+        name: 'LeetCode',
+        url: 'https://leetcode.com/subhaharinis',
+        icon: SiLeetcode,
+        color: 'hover:text-orange-500'
+      },
+      {
+        name: 'CodeChef',
+        url: 'https://www.codechef.com/users/subhaharini07',
+        icon: SiCodechef,
+        color: 'hover:text-red-950'
+      },
+      {
+        name: 'GeeksforGeeks',
+        url: 'https://auth.geeksforgeeks.org/user/subhasenvbrq/profile',
+        icon: SiGeeksforgeeks,
+        color: 'hover:text-green-600'
+      }
+];
 
 const HeroSection = () => {
   return (
@@ -15,7 +50,7 @@ const HeroSection = () => {
                 Hi! I'm{' '}
                 <span className="text-rose">Subhaharini</span>
                 <br />
-                <span className="text-yellow">MERN Stack</span> Developer
+                <span className="text-yellow">Developer</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 I build modern full-stack web apps and love real-time features.
@@ -23,51 +58,59 @@ const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-rose hover:bg-rose/90 text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105">
-                Download CV
+              <a
+                href="https://drive.google.com/file/d/1-Fte-dVzVzbHD3441wkC7EUpAvTqLQpr/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="bg-rose hover:bg-rose/90 text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105">
+                  Download CV
+                </Button>
+              </a>
+
+              <Button
+                className="border border-navy font-bold text-navy hover:bg-navy hover:text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105"
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Let's Connect
               </Button>
-              <div className="flex flex-wrap gap-2">
-                <Button 
-                  variant="outline" 
-                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
-                  onClick={() => window.open('https://github.com', '_blank')}
+
+
+            </div>
+            <div className="flex justify-center lg:justify-start space-x-6">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group relative p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 ${social.color}`}
+                  title={social.name}
                 >
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
-                  onClick={() => window.open('https://leetcode.com', '_blank')}
-                >
-                  💻 LeetCode
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
-                  onClick={() => window.open('https://codechef.com', '_blank')}
-                >
-                  🍳 CodeChef
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-navy text-navy hover:bg-navy hover:text-white px-4 py-3 rounded-2xl font-medium text-sm transition-all duration-300 hover:scale-105"
-                  onClick={() => window.open('https://geeksforgeeks.org', '_blank')}
-                >
-                  🚀 GFG
-                </Button>
-              </div>
+                  <social.icon className="w-6 h-6 text-gray-600 group-hover:text-current transition-colors duration-300" />
+
+                  {/* Tooltip */}
+                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    {social.name}
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
 
           {/* 3D Avatar */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-rose/20 to-yellow/20 rounded-full flex items-center justify-center animate-float">
+              <div className="w-80 h-82 lg:w-96 lg:h-96 flex items-center justify-center animate-float">
                 <img
-                  src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=400&h=400"
+                  src={hero}
                   alt="Female developer with laptop"
-                  className="w-72 h-72 lg:w-80 lg:h-80 object-cover rounded-full shadow-2xl"
+                  className="w-82 h-82 bg-transparent lg:w-90 lg:h-90 object-contain"
                 />
               </div>
               {/* Floating Elements */}
