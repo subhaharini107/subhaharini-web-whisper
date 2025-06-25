@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Code, 
@@ -157,11 +156,11 @@ const SkillsSection = () => {
             return (
               <div
                 key={skill.name}
-                className="group perspective-1000 h-80"
+                className="flip-card h-80"
               >
-                <div className="relative w-full h-full duration-700 transform-style-preserve-3d group-hover:rotate-y-180 group-hover:scale-105 transition-transform">
+                <div className="flip-card-inner h-full">
                   {/* Front Side */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                  <div className="flip-card-front bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
                     <div className="h-full flex flex-col">
                       {/* Skill Icon */}
                       <div className="flex justify-center mb-6">
@@ -217,7 +216,7 @@ const SkillsSection = () => {
                   </div>
 
                   {/* Back Side */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-navy to-navy/90 rounded-2xl p-6 shadow-lg text-white">
+                  <div className="flip-card-back bg-gradient-to-br from-navy to-navy/90 rounded-2xl p-6 shadow-lg text-white">
                     <div className="h-full flex flex-col">
                       {/* Header */}
                       <div className="flex items-center justify-between mb-6">
