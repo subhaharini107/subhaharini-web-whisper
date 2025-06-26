@@ -7,35 +7,35 @@ import { SiCodechef, SiLeetcode, SiGeeksforgeeks } from 'react-icons/si';
 
 const socialLinks = [
   {
-        name: 'LinkedIn',
-        url: 'https://www.linkedin.com/in/subha-harini',
-        icon: FaLinkedin ,
-        color: 'hover:text-blue-500'
-      },
-      {
-        name: 'GitHub',
-        url: 'https://github.com/subhaharini04',
-        icon: Github,
-        color: 'hover:text-gray-800'
-      },
-      {
-        name: 'LeetCode',
-        url: 'https://leetcode.com/subhaharinis',
-        icon: SiLeetcode,
-        color: 'hover:text-orange-500'
-      },
-      {
-        name: 'CodeChef',
-        url: 'https://www.codechef.com/users/subhaharini07',
-        icon: SiCodechef,
-        color: 'hover:text-red-950'
-      },
-      {
-        name: 'GeeksforGeeks',
-        url: 'https://auth.geeksforgeeks.org/user/subhasenvbrq/profile',
-        icon: SiGeeksforgeeks,
-        color: 'hover:text-green-600'
-      }
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/subha-harini',
+    icon: FaLinkedin,
+    color: 'hover:text-blue-500'
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/subhaharini04',
+    icon: Github,
+    color: 'hover:text-gray-800'
+  },
+  {
+    name: 'LeetCode',
+    url: 'https://leetcode.com/subhaharinis',
+    icon: SiLeetcode,
+    color: 'hover:text-orange-500'
+  },
+  {
+    name: 'CodeChef',
+    url: 'https://www.codechef.com/users/subhaharini07',
+    icon: SiCodechef,
+    color: 'hover:text-red-950'
+  },
+  {
+    name: 'GeeksforGeeks',
+    url: 'https://auth.geeksforgeeks.org/user/subhasenvbrq/profile',
+    icon: SiGeeksforgeeks,
+    color: 'hover:text-green-600'
+  }
 ];
 
 const HeroSection = () => {
@@ -57,19 +57,22 @@ const HeroSection = () => {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full">
+              {/* Download CV Button */}
               <a
                 href="https://drive.google.com/file/d/1-Fte-dVzVzbHD3441wkC7EUpAvTqLQpr/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="w-full sm:w-auto"
               >
-                <Button className="bg-rose hover:bg-rose/90 text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105">
+                <Button className="w-full sm:w-auto bg-rose hover:bg-rose/90 text-white px-6 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105">
                   Download CV
                 </Button>
               </a>
 
+              {/* Let's Connect Button */}
               <Button
-                className="border border-navy font-bold text-navy hover:bg-navy hover:text-white px-8 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105"
+                className="w-full sm:w-auto border border-navy font-bold text-navy hover:bg-navy hover:text-white px-6 py-3 rounded-2xl font-medium text-lg transition-all duration-300 hover:scale-105"
                 onClick={() => {
                   const contactSection = document.getElementById('contact');
                   if (contactSection) {
@@ -77,11 +80,10 @@ const HeroSection = () => {
                   }
                 }}
               >
-                Let's Connect
+                Let&apos;s Connect
               </Button>
-
-
             </div>
+
             <div className="flex justify-center lg:justify-start space-x-6">
               {socialLinks.map((social) => (
                 <a

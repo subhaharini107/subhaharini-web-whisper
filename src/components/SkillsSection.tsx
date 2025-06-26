@@ -26,11 +26,23 @@ interface Skill {
   certLink?: string;
 }
 
-const practiceIcons: Record<string, JSX.Element> = {
-  CodeChef: <SiCodechef className="w-5 h-5 text-white" />,
-  LeetCode: <SiLeetcode className="w-5 h-5 text-white" />,
-  GeeksforGeeks: <SiGeeksforgeeks className="w-5 h-5 text-white" />,
-  HackerRank: <FaHackerrank className="w-5 h-5 text-white" />,
+const practiceIcons: Record<string, { icon: JSX.Element; url: string }> = {
+  CodeChef: {
+    icon: <SiCodechef className="w-5 h-5 text-white" />,
+    url: "https://www.codechef.com/users/subhaharini07"
+  },
+  LeetCode: {
+    icon: <SiLeetcode className="w-5 h-5 text-white" />,
+    url: "https://leetcode.com/subhaharinis"
+  },
+  GeeksforGeeks: {
+    icon: <SiGeeksforgeeks className="w-5 h-5 text-white" />,
+    url: "https://auth.geeksforgeeks.org/user/subhasenvbrq/profile"
+  },
+  HackerRank: {
+    icon: <FaHackerrank className="w-5 h-5 text-white" />,
+    url: "https://www.hackerrank.com/subhaharini107"
+  },
 };
 
 const SkillsSection = () => {
@@ -81,7 +93,7 @@ const SkillsSection = () => {
     {
       name: 'JavaScript',
       icon: FaJs,
-      level: 3,
+      level: 2,
       tag: 'Used in Internship',
       category: 'Programming',
       frameworks: ['ES6+', 'Node.js'],
@@ -109,34 +121,6 @@ const SkillsSection = () => {
     { name: 'DBMS' },
     { name: 'DSA' },
   ];
-  // const StarRating = ({ level }: { level: number }) => {
-  //   return (
-  //     <div className="flex gap-1">
-  //       {[1, 2, 3, 4, 5].map((star) => (
-  //         <Star
-  //           key={star}
-  //           className={`w-4 h-4 ${star <= level
-  //             ? 'text-yellow-400 fill-yellow-400'
-  //             : 'text-gray-300'
-  //             }`}
-  //         />
-  //       ))}
-  //     </div>
-  //   );
-  // };
-
-  // const getTagStyles = (tag: string) => {
-  //   switch (tag) {
-  //     case 'Used in Internship':
-  //       return 'bg-rose/20 text-rose border-rose/30';
-  //     case 'Currently Learning':
-  //       return 'bg-blue-100 text-blue-700 border-blue-300';
-  //     case 'Hands On Experience':
-  //       return 'bg-green-100 text-green-700 border-green-300';
-  //     default:
-  //       return 'bg-gray-100 text-gray-700 border-gray-300';
-  //   }
-  // };
 
   const StarRating = ({ level }: { level: number }) => {
     return (
@@ -144,11 +128,10 @@ const SkillsSection = () => {
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
-            className={`w-4 h-4 ${
-              star <= level 
-                ? 'text-yellow-400 fill-yellow-400' 
-                : 'text-gray-300'
-            }`}
+            className={`w-4 h-4 ${star <= level
+              ? 'text-yellow-400 fill-yellow-400'
+              : 'text-gray-300'
+              }`}
           />
         ))}
       </div>
@@ -298,15 +281,21 @@ const SkillsSection = () => {
                       <div className="flex flex-wrap gap-4 items-center">
                         {skill.practiceWebsite?.map((site, i) => (
                           <div key={i} className="relative group">
-                            <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition">
-                              {practiceIcons[site] || <Code className="w-5 h-5 text-white" />}
-                            </div>
+                            <a
+                              href={practiceIcons[site]?.url || '#'}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition"
+                            >
+                              {practiceIcons[site]?.icon || <Code className="w-5 h-5 text-white" />}
+                            </a>
                             <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-black/70 text-white text-xs px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
                               {site}
                             </span>
                           </div>
                         ))}
                       </div>
+
 
                       {skill.githubLink && (
                         <div className="relative group">
