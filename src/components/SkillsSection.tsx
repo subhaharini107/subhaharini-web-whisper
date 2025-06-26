@@ -109,16 +109,46 @@ const SkillsSection = () => {
     { name: 'DBMS' },
     { name: 'DSA' },
   ];
+  // const StarRating = ({ level }: { level: number }) => {
+  //   return (
+  //     <div className="flex gap-1">
+  //       {[1, 2, 3, 4, 5].map((star) => (
+  //         <Star
+  //           key={star}
+  //           className={`w-4 h-4 ${star <= level
+  //             ? 'text-yellow-400 fill-yellow-400'
+  //             : 'text-gray-300'
+  //             }`}
+  //         />
+  //       ))}
+  //     </div>
+  //   );
+  // };
+
+  // const getTagStyles = (tag: string) => {
+  //   switch (tag) {
+  //     case 'Used in Internship':
+  //       return 'bg-rose/20 text-rose border-rose/30';
+  //     case 'Currently Learning':
+  //       return 'bg-blue-100 text-blue-700 border-blue-300';
+  //     case 'Hands On Experience':
+  //       return 'bg-green-100 text-green-700 border-green-300';
+  //     default:
+  //       return 'bg-gray-100 text-gray-700 border-gray-300';
+  //   }
+  // };
+
   const StarRating = ({ level }: { level: number }) => {
     return (
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
-            className={`w-4 h-4 ${star <= level
-              ? 'text-yellow-400 fill-yellow-400'
-              : 'text-gray-300'
-              }`}
+            className={`w-4 h-4 ${
+              star <= level 
+                ? 'text-yellow-400 fill-yellow-400' 
+                : 'text-gray-300'
+            }`}
           />
         ))}
       </div>
@@ -131,7 +161,7 @@ const SkillsSection = () => {
         return 'bg-rose/20 text-rose border-rose/30';
       case 'Currently Learning':
         return 'bg-blue-100 text-blue-700 border-blue-300';
-      case 'Hands On Experience':
+      case 'Certified':
         return 'bg-green-100 text-green-700 border-green-300';
       default:
         return 'bg-gray-100 text-gray-700 border-gray-300';
@@ -155,7 +185,6 @@ const SkillsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skills.map((skill, index) => {
             const IconComponent = skill.icon;
-
             return (
               <div
                 key={skill.name}
